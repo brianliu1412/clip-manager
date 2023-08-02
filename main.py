@@ -6,13 +6,14 @@ from discord.ext import commands
 import os
 import boto3
 import json
-import user
-import video
 import time
 from dotenv import load_dotenv
 from datetime import datetime
 import math
+
 import clean
+import user
+import video
 
 
 boto3.setup_default_session(profile_name="brianliu")
