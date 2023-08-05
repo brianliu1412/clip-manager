@@ -31,7 +31,7 @@ def add_user(table_name, userID, username):
     print(json.dumps(response, indent=2))
 
 def get_item(table_name, userID):
-    dynamodb_resource = boto3.resource("dynamodb", "us-east-2")
+    dynamodb_resource = boto3.resource("dynamodb")
     table = dynamodb_resource.Table(table_name)
     response = table.get_item(Key={'userID': userID})
     print("Getting Item")

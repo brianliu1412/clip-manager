@@ -17,6 +17,7 @@ import video
 
 
 boto3.setup_default_session(profile_name="brianliu")
+
 table_name = "clip-manager"
 
 
