@@ -17,7 +17,7 @@ def download_file(url):
     print(url)
     a = requests.get(url)
     page = a.content
-    soup = BeautifulSoup(page, 'lxml')
+    soup = BeautifulSoup(page, 'html5lib')
     link = soup.find('video').get('src')
     print(link)
     unique_filename = str(uuid.uuid4()) + ".mp4"
