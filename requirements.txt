@@ -13,6 +13,7 @@ charset-normalizer==3.2.0
 click==8.1.6
 DateTime==5.2
 discord==2.3.1
+discord-ext-bot==1.0.1
 discord.py==2.3.1
 frozenlist==1.4.0
 html5lib==1.1
@@ -22,6 +23,7 @@ importlib-metadata==6.8.0
 jishaku==2.5.1
 jmespath==1.0.1
 line-profiler==4.0.3
+lxml==4.9.3
 multidict==6.0.4
 python-dateutil==2.8.2
 python-dotenv==1.0.0

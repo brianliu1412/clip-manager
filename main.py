@@ -43,11 +43,13 @@ async def clips(ctx, *args):
         await ctx.send("Invalid Number of Arguments")
         return
     elif len(args) == 2:
+         page = args[1]
          async for guild in bot.fetch_guilds(limit=100):
             async for member in guild.fetch_members(limit=150):
                 if member.display_name == args[0]:
                     user_queried = member
-    page = args[1]
+    else: 
+        page = args[0]
     numClips = user.get_num_clips(table_name, user_queried.id)
     clips = user.get_clips(table_name, user_queried.id)
     total_pages = math.ceil(numClips/5)
