@@ -15,6 +15,11 @@ import clean
 import user
 import video
 
+import logging
+
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+
+
 
 boto3.setup_default_session(profile_name="brianliu")
 
@@ -162,7 +167,7 @@ async def on_message(message):
         await bot.process_commands(message)
 
             
-bot.run(DISCORD_TOKEN)
+bot.run(DISCORD_TOKEN, log_handler=handler, root_logger=True)
 
 
 
