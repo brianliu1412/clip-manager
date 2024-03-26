@@ -40,7 +40,7 @@ bot = commands.Bot(command_prefix='$', intents=intents, help_command=None)
 
 @bot.command()
 async def clips(ctx, *args):
-    user_queried = ctx.author 
+    user_queried = ctx.author
     if len(args) > 2:
         await ctx.send("Invalid Number of Arguments")
         return
@@ -81,13 +81,16 @@ async def clips(ctx, *args):
                       colour=0x00b0f4,
                       timestamp=datetime.now())
 
-    embed.set_author(name="Clip Manager")
+    #embed.set_author(name="Clip Manager")
     
     print(str(start_val) + " " + str(end_val))
     for i in range(start_val, end_val):
-        embed.add_field(name="Clip "+str(numClips-i)+": " +clips[i]["title"], value=clips[i]['link'], inline=False)
+        url = clips[i]['link']
+        title = clips[i]['title']
+        embed.add_field(name="", value ="["+str(numClips-i)+") "+title+"]("+url+")", inline=False)
 
-    embed.set_thumbnail(url="https://i.pinimg.com/564x/8e/3e/ff/8e3eff7aa6f1147fabcc866666a6c22c.jpg")
+    #embed.set_thumbnail(url="https://i.pinimg.com/564x/8e/3e/ff/8e3eff7aa6f1147fabcc866666a6c22c.jpg")
+    embed.set_thumbnail(url=user_queried.avatar)
 
     embed.set_footer(text="Page " + str(page) + "/" + str(total_pages),
                     icon_url="https://slate.dan.onl/slate.png")
@@ -180,7 +183,7 @@ async def on_message(message):
             file_modified = str(message.author.id)+'/'+filename
             video.upload_file(filename, file_modified, 'clip-manager')
             file_url= CLOUDFRONT_URL+"/"+file_modified
-            await message.channel.send("Clip uploaded at\n" + file_url)
+            await message.channel.send("Clip uploaded!")
             if user.check_user_in_table(message.author.id) == False:
                 user.add_user(table_name, message.author.id, message.author.display_name)
             user.add_clip(table_name, message.author.id, title, file_url)
