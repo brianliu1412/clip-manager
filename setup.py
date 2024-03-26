@@ -18,8 +18,8 @@ name='Clip Manager Bot',
 # Packages to include in the distribution: 
 packages=find_packages(','),
 
-# Project version number:
-version='',
+# Project version number:   
+version='1.0',
 
 # List a license for the project, eg. MIT License
 license='',
@@ -52,6 +52,9 @@ install_requires=[
 'python-dotenv',
 'requests',
 'beautifulsoup4',
+'setuptools',
+'boto3',
+'botocore',
 ],
 
 # https://pypi.org/classifiers/ 
