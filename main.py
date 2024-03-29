@@ -14,7 +14,7 @@ from datetime import datetime
 import math
 import clean
 import uuid
-
+import asyncio
 
 boto3.setup_default_session(profile_name="brianliu")
 table_name = "clip-manager"
@@ -175,15 +175,16 @@ async def on_message(message):
         contents = contents.split(" ")
         print(contents)
 
-        filename = video.download_file(contents[-1])
+        filename = await video.download_file(contents[-1])
         contents.pop()
         title = " ".join(contents)
-        time.sleep(5)
+        await asyncio.sleep(5)
         if os.path.isfile(filename) == True:
             file_modified = str(message.author.id)+'/'+filename
-            video.upload_file(filename, file_modified, 'clip-manager')
+            await video.upload_file(filename, file_modified, 'clip-manager')
             file_url= CLOUDFRONT_URL+"/"+file_modified
             await message.channel.send("Clip uploaded!")
+            await asyncio.sleep(10)
             if user.check_user_in_table(message.author.id) == False:
                 user.add_user(table_name, message.author.id, message.author.display_name)
             user.add_clip(table_name, message.author.id, title, file_url)
