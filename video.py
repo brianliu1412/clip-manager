@@ -82,16 +82,12 @@ async def upload_file(local_path, aws_path, bucket, object_name=None):
         return
 
 async def delete_video(aws_path):
-    s3 = boto3.client(
-        's3',
-        aws_access_key_id=AWS_KEY,
-        aws_secret_access_key=AWS_ID
-    )
-    try:
-        response = await s3.delete_object(Bucket='clip-manager', Key=aws_path)
-        print(f"File deleted from clip-manager/{AWS_KEY}.")
-
-    except Exception as e:
-        print(f"Error deleting file from S3: {e}")
+    session = aioboto3.Session()
+    async with session.client("s3") as s3:
+        try:
+            await s3.delete_object(Bucket='clip-manager', Key=aws_path)
+            print(f"File deleted from clip-manager/{AWS_KEY}.")
+        except Exception as e:
+            print(f"Error deleting file from S3: {e}")
 
     

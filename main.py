@@ -5,19 +5,28 @@ from discord import Intents
 from discord.ext import commands
 import os
 import boto3
-import json
 import user
 import video
-import time
 from dotenv import load_dotenv
 from datetime import datetime
 import math
 import clean
 import uuid
 import asyncio
+import logging
+
+
+logging.basicConfig(filename="std.log", 
+					format='%(asctime)s %(message)s', 
+					filemode='w') 
+
+logger=logging.getLogger() 
+logger.setLevel(logging.DEBUG) 
+
 
 boto3.setup_default_session(profile_name="brianliu")
 table_name = "clip-manager"
+
 
 
 
@@ -53,7 +62,7 @@ async def clips(ctx, *args):
     elif len(args) == 0:
         page = 1
     elif len(args) == 1 and not args[0].isnumeric():
-        await ctx.send("Invalid arguments, plase add a page number!")
+        await ctx.send("Invalid arguments, please add a page number!")
         return
     else:
         page = args[0]
@@ -110,7 +119,9 @@ async def remove(ctx, *args):
     
     idx =  numClips - int(args[0])
     s3_link = user.remove_clip('clip-manager', user_queried.id, idx)
-    video.delete_video(s3_link)
+    await video.delete_video(s3_link)
+    await ctx.send("Clip removed!")
+
     
     
 
